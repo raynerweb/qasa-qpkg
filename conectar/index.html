@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Conectar ao Qasa</title>
+<!--
+  Página que o QR do assistente do Qasa abre quando lido pela câmera do celular. Publicada em
+  https://raynerweb.github.io/qasa-qpkg/conectar/ (fonte: qasa/qpkg/pagina-conectar/).
+  Os dados (endereços do NAS, nome e código de uso único) vêm só no fragmento (#), que o navegador
+  não envia a servidor nenhum; esta página não carrega nada de fora e não guarda nada.
+-->
+<style>
+:root { --bg:#f4f6f5; --card:#fff; --text:#1c2523; --muted:#5d6b67; --line:#dfe5e3; --brand:#1f7a6e; --ink:#fff; --warn:#b7791f;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.45; color:var(--text); background:var(--bg); }
+@media (prefers-color-scheme: dark) { :root { --bg:#111716; --card:#1a2220; --text:#e6ecea; --muted:#9aa8a4; --line:#2b3633; --brand:#3fae9e; --ink:#0c1312; --warn:#e0a84a; } }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); }
+main { max-width:440px; margin:0 auto; padding:24px 16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 18px; }
+.brand { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.brand svg { width:40px; height:40px; } .brand strong { font-size:1.2rem; }
+h1 { font-size:1.35rem; margin:0 0 8px; } h2 { font-size:1rem; margin:22px 0 6px; }
+p { margin:6px 0 12px; } .muted { color:var(--muted); font-size:.93rem; }
+.button { display:block; text-align:center; padding:14px 18px; border-radius:12px; font-weight:600; text-decoration:none; background:var(--brand); color:var(--ink); margin:14px 0 6px; }
+.button.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
+.code { font:600 1.25rem ui-monospace,Menlo,monospace; letter-spacing:.08em; }
+.notice { border:1px solid var(--warn); border-radius:10px; padding:10px 12px; font-size:.93rem; }
+[hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="brand">
+      <svg viewBox="0 0 256 256" aria-hidden="true"><rect x="8" y="8" width="240" height="240" rx="52" fill="#1F7A6E"/><path d="M128 44 L216 116 L196 116 L196 206 L60 206 L60 116 L40 116 Z" fill="#fff"/><rect x="80" y="122" width="96" height="66" rx="8" fill="#1F7A6E"/><circle cx="152" cy="140" r="10" fill="#F4C542"/><path d="M84 184 L112 148 L132 170 L144 158 L172 184 Z" fill="#fff"/></svg>
+      <strong>Qasa</strong>
+    </div>
+
+    <section id="ok" hidden>
+      <h1 id="title">Conectar este celular</h1>
+      <p class="muted">Toque no botão para abrir o app Qasa já conectado ao NAS da sua casa. Não precisa digitar senha.</p>
+      <a class="button" id="open" href="#">Abrir no app Qasa</a>
+      <p class="muted">Código de conexão: <span class="code" id="code"></span><br>Vale por 10 minutos e uma vez só. Se vencer, peça um QR novo.</p>
+      <p class="muted" id="where"></p>
+
+      <h2>Ainda não tem o app?</h2>
+      <div id="store-android" hidden>
+        <p class="muted">O Qasa ainda não está na Google Play. Peça a quem cuida do NAS para instalar o app neste celular e depois leia o QR de novo.</p>
+      </div>
+      <div id="store-ios" hidden>
+        <p class="muted">O Qasa ainda não está na App Store. Peça a quem cuida do NAS para instalar o app neste iPhone e depois leia o QR de novo.</p>
+      </div>
+      <div id="store-other" hidden>
+        <p class="muted">Abra este QR no celular (Android ou iPhone) que vai ver as fotos.</p>
+      </div>
+      <p class="muted">Se o app já estiver instalado, também dá para abrir o Qasa, tocar em <b>Ler QR code</b> e apontar para o QR na tela do NAS.</p>
+    </section>
+
+    <section id="missing" hidden>
+      <h1>Conectar ao Qasa</h1>
+      <p class="notice" id="missing-text">Este link não tem os dados de conexão. Leia de novo o QR que aparece no assistente do Qasa, no NAS (tela Celulares).</p>
+    </section>
+  </div>
+</main>
+<script>
+"use strict";
+(function () {
+  var APP_PACKAGE = "br.com.raynerweb.qasa";
+  var raw = location.hash.replace(/^#/, "");
+  var params = {};
+  raw.split("&").forEach(function (kv) {
+    var i = kv.indexOf("=");
+    if (i > 0) { try { params[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) {} }
+  });
+  var http = function (s) { return typeof s === "string" && /^https?:\/\/[^\s\/?#]+$/.test(s); };
+  var valid = params.c && http(params.h) && (!params.r || http(params.r));
+  var ua = navigator.userAgent || "";
+  var platform = /android/i.test(ua) ? "android" : (/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) ? "ios" : "other";
+
+  if (location.hash === "#sem-app" || !valid) {
+    document.getElementById("missing").hidden = false;
+    if (location.hash === "#sem-app") document.getElementById("missing-text").textContent =
+      "Não encontrei o app Qasa neste celular. Peça a quem cuida do NAS para instalar o app e depois leia o QR de novo.";
+    return;
+  }
+
+  // Tira o código da barra de endereço e do histórico do navegador; ele fica só nesta página aberta.
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+
+  document.getElementById("ok").hidden = false;
+  if (params.u) document.getElementById("title").textContent = "Conectar o celular de " + params.u;
+  document.getElementById("code").textContent = params.c;
+  document.getElementById("where").textContent = params.r
+    ? "Funciona em casa e fora de casa (pelo Tailscale)."
+    : "Funciona só em casa, na rede do NAS.";
+  document.getElementById("store-" + platform).hidden = false;
+
+  var open = document.getElementById("open");
+  if (platform === "android") {
+    // intent://: abre o app se instalado; senão volta para esta página avisando (#sem-app).
+    var fallback = location.origin + location.pathname + "#sem-app";
+    open.href = "intent://conectar?" + raw + "#Intent;scheme=qasa;package=" + APP_PACKAGE +
+      ";S.browser_fallback_url=" + encodeURIComponent(fallback) + ";end";
+  } else if (platform === "ios") {
+    open.href = "qasa://conectar#" + raw;
+  } else {
+    open.hidden = true;
+  }
+})();
+</script>
+</body>
+</html>
