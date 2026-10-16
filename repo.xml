@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugins>
+  <cachechk>202610161732</cachechk>
+  <item>
+    <name>Qasa</name>
+    <internalName>Qasa</internalName>
+    <changeLog>https://github.com/raynerweb/qasa-qpkg/releases</changeLog>
+    <category>Qasa</category>
+    <type>Multimedia</type>
+    <icon80>https://raynerweb.github.io/qasa-qpkg/Qasa_80.gif</icon80>
+    <icon100>https://raynerweb.github.io/qasa-qpkg/Qasa_100.gif</icon100>
+    <description>Serviço do app Qasa: mostra no telefone, em casa ou fora, as fotos da família guardadas no NAS. Lê as fotos somente leitura e mantém um índice próprio fora da pasta de fotos. Requer o Container Station 3.</description>
+    <fwVersion>5.0.0</fwVersion>
+    <version>0.2.1</version>
+    <platform>
+      <platformID>TS-NASX86</platformID>
+      <location>https://github.com/raynerweb/qasa-qpkg/releases/download/qpkg-v0.2.1/Qasa_0.2.1_x86_64.qpkg</location>
+      <signature />
+    </platform>
+    <publishedDate>2026-10-16 17:32:27</publishedDate>
+    <maintainer>raynerweb</maintainer>
+    <developer>raynerweb</developer>
+    <forumlink>https://github.com/raynerweb/qasa-qpkg</forumlink>
+    <language>Portuguese</language>
+    <snapshot />
+    <bannerImg />
+    <tutorialLink>https://github.com/raynerweb/qasa-qpkg</tutorialLink>
+  </item>
+</plugins>
