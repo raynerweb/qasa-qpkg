@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<title>Qasa · Privacidade / Privacy</title>
+<!--
+  Política de privacidade do Qasa (app Android/iOS e pacote do NAS), em português e inglês.
+  Para publicar em https://raynerweb.github.io/qasa-qpkg/privacidade/ (fonte: qasa/qpkg/pagina-privacidade/).
+  Página estática: não carrega nada de fora e não guarda nada.
+-->
+<style>
+:root { --bg:#f4f6f5; --card:#fff; --text:#1c2523; --muted:#5d6b67; --line:#dfe5e3; --brand:#1f7a6e;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.5; color:var(--text); background:var(--bg); }
+@media (prefers-color-scheme: dark) { :root { --bg:#111716; --card:#1a2220; --text:#e6ecea; --muted:#9aa8a4; --line:#2b3633; --brand:#3fae9e; } }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); }
+main { max-width:720px; margin:0 auto; padding:24px 16px 48px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 20px; margin-bottom:18px; }
+.brand { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.brand svg { width:40px; height:40px; } .brand strong { font-size:1.2rem; }
+h1 { font-size:1.4rem; margin:6px 0 4px; } h2 { font-size:1.05rem; margin:22px 0 6px; }
+p, li { margin:6px 0; } ul { padding-left:20px; } .muted { color:var(--muted); font-size:.93rem; }
+nav a { color:var(--brand); margin-right:14px; } a { color:var(--brand); }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">
+    <svg viewBox="0 0 256 256" aria-hidden="true"><rect x="8" y="8" width="240" height="240" rx="52" fill="#1F7A6E"/><path d="M128 44 L216 116 L196 116 L196 206 L60 206 L60 116 L40 116 Z" fill="#fff"/><rect x="80" y="122" width="96" height="66" rx="8" fill="#1F7A6E"/><circle cx="152" cy="140" r="10" fill="#F4C542"/><path d="M84 184 L112 148 L132 170 L144 158 L172 184 Z" fill="#fff"/></svg>
+    <strong>Qasa</strong>
+  </div>
+  <nav><a href="#pt">Português</a><a href="#en">English</a></nav>
+
+  <section class="card" id="pt" lang="pt-BR">
+    <h1>Política de privacidade</h1>
+    <p class="muted">Vale para o app Qasa (Android e iPhone) e para o pacote Qasa do NAS QNAP. Última atualização: 17 de outubro de 2026.</p>
+
+    <h2>Resumo</h2>
+    <p>O Qasa mostra as fotos e os vídeos que já estão no <b>seu</b> NAS. Ele não tem servidor próprio na internet, não coleta dados, não tem anúncios, não usa ferramentas de análise ou rastreamento e não vende nem compartilha nada com ninguém.</p>
+
+    <h2>No celular</h2>
+    <ul>
+      <li>O app conversa apenas com o NAS cujo endereço você informou (pelo QR do assistente ou digitado), na sua rede de casa ou pelo Tailscale.</li>
+      <li>Fica guardado no próprio aparelho: o endereço do NAS, o seu nome de usuário, uma chave de acesso (no Keychain do iPhone ou cifrada pelo Android Keystore), a lista das fotos e um cache de miniaturas. A senha só é guardada, cifrada, se você marcar "Lembrar senha". Tudo isso sai do aparelho ao desinstalar o app.</li>
+      <li>A câmera é usada só para ler o QR de conexão. No Android, a leitura é feita pelo leitor do Google Play services, no próprio aparelho; o app não recebe as imagens da câmera. No iPhone, a leitura é feita pelo sistema (VisionKit), também no aparelho.</li>
+      <li>O app não lê os seus contatos, a sua localização nem as fotos do celular, e nunca escreve, move ou apaga nada no NAS.</li>
+    </ul>
+
+    <h2>No NAS</h2>
+    <ul>
+      <li>O pacote Qasa lê as fotos e vídeos da pasta configurada (por padrão <code>Multimedia/cameras</code>) somente para leitura e guarda, numa pasta de dados no próprio NAS: o índice das mídias, as contas criadas no assistente (nome, perfil, pasta e senha guardada só como hash), as chaves de acesso dos celulares (só como hash), a data do último acesso de cada pessoa e as versões dos vídeos convertidas para o celular.</li>
+      <li>O login do assistente é conferido pelo próprio QTS do NAS; a senha do administrador não é guardada.</li>
+      <li>Nada disso é enviado para fora do NAS.</li>
+    </ul>
+
+    <h2>Serviços de terceiros</h2>
+    <ul>
+      <li><b>Página de conexão:</b> quando o QR é lido pela câmera do celular, abre uma página em <code>raynerweb.github.io</code> (GitHub Pages). Os dados da conexão vão só depois do <code>#</code> do endereço, que o navegador não envia a servidor nenhum; o GitHub recebe apenas um pedido comum da página, como em qualquer site.</li>
+      <li><b>Atualizações do pacote:</b> o App Center do NAS consulta a lista de versões e baixa o pacote do GitHub.</li>
+      <li><b>Tailscale:</b> se você usar o acesso fora de casa, a conexão passa pela sua conta do Tailscale, segundo a política de privacidade do Tailscale. O certificado HTTPS do nome do seu NAS no Tailscale fica registrado em logs públicos de certificados, como todo certificado HTTPS.</li>
+      <li><b>Lojas de apps:</b> Google Play e App Store podem coletar dados de instalação conforme as políticas delas.</li>
+    </ul>
+
+    <h2>Crianças</h2>
+    <p>Perfis de criança, criados por um adulto no assistente do NAS, veem só a própria pasta de fotos. O Qasa não coleta dados de ninguém, inclusive de crianças.</p>
+
+    <h2>Contato</h2>
+    <p>Dúvidas ou pedidos: abra uma questão em <a href="https://github.com/raynerweb/qasa-qpkg/issues">github.com/raynerweb/qasa-qpkg/issues</a>.</p>
+  </section>
+
+  <section class="card" id="en" lang="en">
+    <h1>Privacy policy</h1>
+    <p class="muted">Applies to the Qasa app (Android and iPhone) and to the Qasa package for QNAP NAS. Last updated: October 17, 2026.</p>
+
+    <h2>Summary</h2>
+    <p>Qasa shows the photos and videos that are already on <b>your</b> NAS. It has no server of its own on the internet, collects no data, shows no ads, uses no analytics or tracking tools, and does not sell or share anything with anyone.</p>
+
+    <h2>On the phone</h2>
+    <ul>
+      <li>The app only talks to the NAS whose address you entered (from the setup QR code or typed in), on your home network or through Tailscale.</li>
+      <li>Stored on the device itself: the NAS address, your user name, an access key (in the iPhone Keychain or encrypted with the Android Keystore), the photo list and a thumbnail cache. Your password is stored, encrypted, only if you tick "Remember password". All of it is removed when you uninstall the app.</li>
+      <li>The camera is used only to read the connection QR code. On Android, scanning is done on the device by the Google Play services code scanner; the app does not receive camera images. On iPhone, scanning is done on the device by the system (VisionKit).</li>
+      <li>The app does not read your contacts, your location or the photos on your phone, and it never writes, moves or deletes anything on the NAS.</li>
+    </ul>
+
+    <h2>On the NAS</h2>
+    <ul>
+      <li>The Qasa package reads photos and videos from the configured folder (by default <code>Multimedia/cameras</code>) read-only, and keeps, in a data folder on the NAS itself: the media index, the accounts created in the setup assistant (name, profile, folder, and the password stored only as a hash), the phones' access keys (only as hashes), each person's last access time, and the phone-friendly versions of the videos.</li>
+      <li>Sign-in to the setup assistant is checked by the NAS's own QTS; the administrator password is not stored.</li>
+      <li>None of this is sent outside the NAS.</li>
+    </ul>
+
+    <h2>Third-party services</h2>
+    <ul>
+      <li><b>Connection page:</b> when the QR code is read with the phone camera, it opens a page on <code>raynerweb.github.io</code> (GitHub Pages). The connection details travel only after the <code>#</code> in the address, which browsers never send to any server; GitHub only receives an ordinary page request, as with any website.</li>
+      <li><b>Package updates:</b> the NAS App Center fetches the version list and downloads the package from GitHub.</li>
+      <li><b>Tailscale:</b> if you use access away from home, the connection goes through your Tailscale account, under Tailscale's privacy policy. The HTTPS certificate for your NAS's Tailscale name is recorded in public certificate transparency logs, like every HTTPS certificate.</li>
+      <li><b>App stores:</b> Google Play and the App Store may collect installation data under their own policies.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>Child profiles, created by an adult in the NAS setup assistant, only see their own photo folder. Qasa collects no data from anyone, children included.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or requests: open an issue at <a href="https://github.com/raynerweb/qasa-qpkg/issues">github.com/raynerweb/qasa-qpkg/issues</a>.</p>
+  </section>
+</main>
+</body>
+</html>
