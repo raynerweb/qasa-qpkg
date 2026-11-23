@@ -57,7 +57,7 @@ Nenhuma conta vem no pacote: crie as contas da família no assistente (ícone do
 
 ## Segurança
 
-Problemas de segurança: escreva para **{{EMAIL_SEGURANCA}}** e não abra uma questão pública. Detalhes em
+Problemas de segurança: escreva para **raynerweb.apps@gmail.com** e não abra uma questão pública. Detalhes em
 [SECURITY.md](SECURITY.md).
 
 ## Dúvidas e problemas

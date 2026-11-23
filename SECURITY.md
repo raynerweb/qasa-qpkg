@@ -7,7 +7,7 @@
 
 ### Como avisar de um problema de segurança
 
-Escreva para **{{EMAIL_SEGURANCA}}** com:
+Escreva para **raynerweb.apps@gmail.com** com:
 
 - a versão do pacote do NAS e/ou do app (iPhone ou Android);
 - o que acontece e como repetir o problema;
@@ -42,7 +42,7 @@ respectivos fabricantes.
 
 ### How to report a security issue
 
-Email **{{EMAIL_SEGURANCA}}** with:
+Email **raynerweb.apps@gmail.com** with:
 
 - the NAS package and/or app version (iPhone or Android);
 - what happens and how to reproduce it;
