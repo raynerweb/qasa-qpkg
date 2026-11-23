@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<title>Qasa · Instalação</title>
+<meta name="description" content="Qasa: app independente para ver no telefone as fotos e vídeos da família guardados no seu NAS. Como instalar o pacote no NAS.">
+<!--
+  Página inicial do Qasa no GitHub Pages (https://raynerweb.github.io/qasa-qpkg/), em português e inglês.
+  Diz o que é o Qasa, deixa claro que é independente (não é produto da QNAP), ensina a instalar o pacote
+  manualmente e diz como avisar de um problema de segurança. Página estática: não carrega nada de fora. Fonte: qasa/qpkg/pagina-inicial/ (copiar para a raiz do qasa-qpkg).
+  Mesmo visual da página de privacidade (privacidade/index.html).
+-->
+<style>
+:root { --bg:#f4f6f5; --card:#fff; --text:#1c2523; --muted:#5d6b67; --line:#dfe5e3; --brand:#1f7a6e; --note:#fff7dc; --note-line:#ecd98f;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.55; color:var(--text); background:var(--bg); }
+@media (prefers-color-scheme: dark) { :root { --bg:#111716; --card:#1a2220; --text:#e6ecea; --muted:#9aa8a4; --line:#2b3633; --brand:#3fae9e; --note:#2a2616; --note-line:#5a4f22; } }
+* { box-sizing:border-box; } body { margin:0; background:var(--bg); }
+main { max-width:760px; margin:0 auto; padding:24px 16px 48px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 20px; margin-bottom:18px; }
+.brand { display:flex; align-items:center; gap:12px; margin-bottom:4px; }
+.brand svg { width:52px; height:52px; flex:none; } .brand strong { font-size:1.6rem; }
+.tagline { color:var(--muted); margin:2px 0 12px; }
+.aviso { background:var(--note); border:1px solid var(--note-line); border-radius:12px; padding:12px 14px; margin:14px 0; }
+h1 { font-size:1.35rem; margin:4px 0 6px; } h2 { font-size:1.08rem; margin:24px 0 6px; }
+p, li { margin:6px 0; } ul, ol { padding-left:22px; } .muted { color:var(--muted); font-size:.93rem; }
+nav a { color:var(--brand); margin-right:14px; } a { color:var(--brand); }
+code { background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:1px 5px; font-size:.9em; overflow-wrap:anywhere; }
+pre { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; overflow-x:auto; font-size:.88em; }
+.botao { display:inline-block; background:var(--brand); color:#fff; text-decoration:none; padding:9px 16px; border-radius:10px; font-weight:600; margin:6px 0; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">
+    <svg viewBox="0 0 256 256" aria-hidden="true"><rect x="8" y="8" width="240" height="240" rx="52" fill="#1F7A6E"/><path d="M128 44 L216 116 L196 116 L196 206 L60 206 L60 116 L40 116 Z" fill="#fff"/><rect x="80" y="122" width="96" height="66" rx="8" fill="#1F7A6E"/><circle cx="152" cy="140" r="10" fill="#F4C542"/><path d="M84 184 L112 148 L132 170 L144 158 L172 184 Z" fill="#fff"/></svg>
+    <strong>Qasa</strong>
+  </div>
+  <nav><a href="#pt">Português</a><a href="#en">English</a><a href="privacidade/">Privacidade / Privacy</a></nav>
+
+  <!-- ===================== PORTUGUÊS ===================== -->
+  <section class="card" id="pt" lang="pt-BR">
+    <p class="tagline">As fotos e vídeos da família, guardados no seu NAS, no telefone. Em casa ou fora, sem nuvem.</p>
+
+    <div class="aviso">
+      <b>App independente.</b> O Qasa é um projeto pessoal e independente, feito por raynerweb. <b>Não é um produto
+      da QNAP</b> e não é desenvolvido, mantido, verificado nem apoiado pela QNAP Systems, Inc. QNAP, QTS e App Center
+      são marcas da QNAP Systems, Inc. e aparecem aqui só para dizer em quais aparelhos o Qasa funciona.
+    </div>
+
+    <h1>O que é</h1>
+    <ul>
+      <li><b>Pacote do NAS</b> (este repositório): um serviço que roda no Container Station, lê a pasta de fotos
+        <b>somente leitura</b>, mantém um índice próprio numa pasta separada e converte vídeos para o telefone.
+        Tem um assistente web para criar as contas da família e conectar os telefones por QR code.</li>
+      <li><b>Apps para iPhone e Android</b>: mostram as fotos que estão no NAS, em casa pela rede local ou fora
+        pelo Tailscale (HTTPS). Os apps só leem: nunca apagam, movem ou alteram nada no NAS.</li>
+    </ul>
+    <p>O Qasa não tem servidor na internet, não coleta dados e não mostra anúncios. Veja a
+      <a href="privacidade/">política de privacidade</a>.</p>
+
+    <h2>Requisitos</h2>
+    <ul>
+      <li>NAS QNAP com processador Intel ou AMD (x86_64) e QTS 5.0 ou mais novo</li>
+      <li>Container Station 3 instalado e ligado</li>
+    </ul>
+
+    <h2>Instalar no NAS (instalação manual)</h2>
+    <p>O Qasa não está na loja oficial do App Center. A instalação é manual, com o arquivo <code>.qpkg</code>
+      publicado aqui no GitHub.</p>
+    <ol>
+      <li>Baixe o <code>Qasa_&lt;versão&gt;_x86_64.qpkg</code> e o <code>.sha256</code> da versão mais recente:<br>
+        <a class="botao" href="https://github.com/raynerweb/qasa-qpkg/releases/latest">Baixar a versão mais recente</a></li>
+      <li>Confira se o arquivo veio inteiro (o resultado tem de ser igual ao que está no <code>.sha256</code>):
+        <pre>Mac/Linux:  shasum -a 256 Qasa_*_x86_64.qpkg
+Windows:    certutil -hashfile Qasa_&lt;versão&gt;_x86_64.qpkg SHA256</pre></li>
+      <li>No QTS, abra o <b>App Center</b> &gt; ícone de engrenagem (Configurações) &gt; <b>Geral</b> e permita a
+        instalação de apps sem assinatura digital. O pacote não é assinado pela QNAP, porque não está na loja oficial.</li>
+      <li>No App Center, clique no botão de <b>instalação manual</b> (ícone ao lado da engrenagem), escolha o
+        arquivo <code>.qpkg</code> e confirme.</li>
+      <li>Abra o ícone do <b>Qasa</b> no menu do QTS. O assistente confere o NAS, ajuda a escolher a pasta das
+        fotos, criar as contas da família e gerar o QR code de cada telefone.</li>
+    </ol>
+    <p class="muted">Depois de instalar, pode voltar a desligar a opção de apps sem assinatura.</p>
+
+    <h3 style="font-size:1rem;margin:18px 0 4px">Atualizações automáticas (opcional)</h3>
+    <p>Para o App Center avisar quando sair uma versão nova, adicione o repositório do Qasa em
+      <b>App Center</b> &gt; Configurações &gt; <b>Repositório de aplicativos</b> &gt; Adicionar:</p>
+    <ul>
+      <li>Nome: <code>Qasa</code></li>
+      <li>URL: <code>https://raynerweb.github.io/qasa-qpkg/repo.xml</code></li>
+    </ul>
+    <p class="muted">Este repositório é mantido por raynerweb, não pela QNAP.</p>
+
+    <h2>Desinstalar</h2>
+    <p>Desinstale pelo App Center. As fotos nunca são tocadas, e a pasta de dados do Qasa
+      (<code>/share/Container/qasa-server/data</code>, com o índice, as contas e os vídeos convertidos) é mantida;
+      apague-a à mão se não for usar mais.</p>
+
+    <h2>Apps no telefone</h2>
+    <p>Os apps para iPhone e Android estão em fase de testes. Os links serão publicados aqui.</p>
+
+    <h2>Segurança</h2>
+    <p>Encontrou um problema de segurança no Qasa? Escreva para <a href="mailto:{{EMAIL_SEGURANCA}}">{{EMAIL_SEGURANCA}}</a>
+      e não abra uma questão pública. Veja a <a href="https://github.com/raynerweb/qasa-qpkg/blob/main/SECURITY.md">política de segurança</a>.</p>
+
+    <h2>Dúvidas e problemas</h2>
+    <p>Abra uma questão em <a href="https://github.com/raynerweb/qasa-qpkg/issues">github.com/raynerweb/qasa-qpkg/issues</a>.
+      Não peça suporte do Qasa à QNAP: eles não fazem nem mantêm este app.</p>
+  </section>
+
+  <!-- ===================== ENGLISH ===================== -->
+  <section class="card" id="en" lang="en">
+    <p class="tagline">Your family's photos and videos, kept on your NAS, on your phone. At home or away, no cloud.</p>
+
+    <div class="aviso">
+      <b>Independent app.</b> Qasa is a personal, independent project by raynerweb. <b>It is not a QNAP product</b>
+      and is not developed, maintained, verified or endorsed by QNAP Systems, Inc. QNAP, QTS and App Center are
+      trademarks of QNAP Systems, Inc. and are used here only to say which devices Qasa runs on.
+    </div>
+
+    <h1>What it is</h1>
+    <ul>
+      <li><b>NAS package</b> (this repository): a service that runs in Container Station, reads the photo folder
+        <b>read-only</b>, keeps its own index in a separate folder and converts videos for phones. A web setup
+        assistant creates the family accounts and connects phones with a QR code.</li>
+      <li><b>iPhone and Android apps</b>: show the photos stored on the NAS, at home over the local network or away
+        through Tailscale (HTTPS). The apps are read-only: they never delete, move or change anything on the NAS.</li>
+    </ul>
+    <p>Qasa has no server on the internet, collects no data and shows no ads. See the
+      <a href="privacidade/#en">privacy policy</a>.</p>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>QNAP NAS with an Intel or AMD (x86_64) processor and QTS 5.0 or newer</li>
+      <li>Container Station 3 installed and running</li>
+    </ul>
+
+    <h2>Install on the NAS (manual installation)</h2>
+    <p>Qasa is not in the official App Center store. Install it manually with the <code>.qpkg</code> file
+      published here on GitHub.</p>
+    <ol>
+      <li>Download <code>Qasa_&lt;version&gt;_x86_64.qpkg</code> and its <code>.sha256</code> from the latest release:<br>
+        <a class="botao" href="https://github.com/raynerweb/qasa-qpkg/releases/latest">Download the latest version</a></li>
+      <li>Check the file is complete (the result must match the <code>.sha256</code> file):
+        <pre>Mac/Linux:  shasum -a 256 Qasa_*_x86_64.qpkg
+Windows:    certutil -hashfile Qasa_&lt;version&gt;_x86_64.qpkg SHA256</pre></li>
+      <li>In QTS, open <b>App Center</b> &gt; gear icon (Settings) &gt; <b>General</b> and allow installing apps
+        without a digital signature. The package is not signed by QNAP, because it is not in the official store.</li>
+      <li>In App Center, click the <b>Install Manually</b> button (next to the gear icon), pick the
+        <code>.qpkg</code> file and confirm.</li>
+      <li>Open the <b>Qasa</b> icon in the QTS menu. The assistant checks the NAS and helps you pick the photo
+        folder, create the family accounts and make each phone's QR code.</li>
+    </ol>
+    <p class="muted">After installing, you can turn the unsigned apps option off again.</p>
+
+    <h3 style="font-size:1rem;margin:18px 0 4px">Automatic updates (optional)</h3>
+    <p>To have App Center tell you about new versions, add Qasa's repository in <b>App Center</b> &gt; Settings &gt;
+      <b>App Repository</b> &gt; Add:</p>
+    <ul>
+      <li>Name: <code>Qasa</code></li>
+      <li>URL: <code>https://raynerweb.github.io/qasa-qpkg/repo.xml</code></li>
+    </ul>
+    <p class="muted">This repository is run by raynerweb, not by QNAP.</p>
+
+    <h2>Uninstall</h2>
+    <p>Uninstall from App Center. Photos are never touched, and Qasa's data folder
+      (<code>/share/Container/qasa-server/data</code>, with the index, accounts and converted videos) is kept;
+      delete it by hand if you no longer need it.</p>
+
+    <h2>Phone apps</h2>
+    <p>The iPhone and Android apps are in testing. Links will be posted here.</p>
+
+    <h2>Security</h2>
+    <p>Found a security issue in Qasa? Email <a href="mailto:{{EMAIL_SEGURANCA}}">{{EMAIL_SEGURANCA}}</a> and please do not
+      open a public issue. See the <a href="https://github.com/raynerweb/qasa-qpkg/blob/main/SECURITY.md">security policy</a>.</p>
+
+    <h2>Questions and problems</h2>
+    <p>Open an issue at <a href="https://github.com/raynerweb/qasa-qpkg/issues">github.com/raynerweb/qasa-qpkg/issues</a>.
+      Please do not ask QNAP for Qasa support: they do not make or maintain this app.</p>
+  </section>
+</main>
+</body>
+</html>
